@@ -9,9 +9,32 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const client_1 = require("@prisma/client");
+const prisma = new client_1.PrismaClient();
 class UserModel {
-    static createUser() {
+    static createUser(newUserObj) {
         return __awaiter(this, void 0, void 0, function* () {
+            return yield prisma.user.create({
+                data: newUserObj
+            });
+        });
+    }
+    static findUserEmail(_a) {
+        return __awaiter(this, arguments, void 0, function* ({ email }) {
+            return yield prisma.user.findUnique({
+                where: {
+                    email
+                },
+            });
+        });
+    }
+    static findUserId(_a) {
+        return __awaiter(this, arguments, void 0, function* ({ id }) {
+            return yield prisma.user.findUnique({
+                where: {
+                    id
+                },
+            });
         });
     }
 }

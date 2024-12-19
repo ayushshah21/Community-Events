@@ -4,13 +4,23 @@ import { UserSignup } from "../types";
 const prisma = new PrismaClient();
 
 export default class UserModel {
-    static async createUser({firstName, lastName, email}: UserSignup){
+    static async createUser(newUserObj: UserSignup){
         return await prisma.user.create({
-            data : {
-                firstName,
-                lastName,
-                email
-            }
+            data : newUserObj
         })
     }   
+    static async findUserEmail({email}: {email: string}){
+        return await prisma.user.findUnique({
+            where: {
+                email
+              },
+        });
+    }
+    static async findUserId({id}: {id: string}){
+        return await prisma.user.findUnique({
+            where: {
+                id
+              },
+        });
+    }
 }
