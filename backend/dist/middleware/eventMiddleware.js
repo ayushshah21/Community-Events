@@ -20,7 +20,6 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config({ path: "../../.env" });
 const newEventSchema = zod_1.default.object({
     name: zod_1.default.string(),
-    title: zod_1.default.string(),
     description: zod_1.default.string(),
     location: zod_1.default.string(),
     creatorId: zod_1.default.string(),

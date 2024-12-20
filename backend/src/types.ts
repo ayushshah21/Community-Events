@@ -6,7 +6,6 @@ export interface UserSignup {
 }
 export interface CreateEvent {
     name: string
-    title: string
     description: string
     location: string
     creatorId: string
@@ -14,5 +13,5 @@ export interface CreateEvent {
 }
 
 export interface User {
-    
+
 }

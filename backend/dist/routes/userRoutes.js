@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const userController_1 = __importDefault(require("../controllers/userController"));
 const userMiddleware_1 = require("../middleware/userMiddleware");
+const userMiddleware_2 = require("../middleware/userMiddleware");
 const router = express_1.default.Router();
 const userController = new userController_1.default();
 router.post('/signup', userMiddleware_1.signupCheck, (req, res) => {
@@ -13,5 +14,8 @@ router.post('/signup', userMiddleware_1.signupCheck, (req, res) => {
 });
 router.get('/signin', userMiddleware_1.signinCheck, (req, res) => {
     userController.signin(req, res);
+});
+router.get('/', userMiddleware_2.verifyToken, (req, res) => {
+    userController.getInfo(req, res);
 });
 exports.default = router;

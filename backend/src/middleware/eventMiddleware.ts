@@ -8,7 +8,6 @@ dotenv.config({ path: "../../.env" });
 
 const newEventSchema = z.object({
     name: z.string(),
-    title: z.string(),
     description: z.string(),
     location: z.string(),
     creatorId: z.string(),

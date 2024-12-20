@@ -21,10 +21,10 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config({ path: "../../.env" });
 const userSignupSchema = zod_1.default.object({
-    firstName: zod_1.default.string(),
-    lastName: zod_1.default.string(),
+    firstName: zod_1.default.string().min(1),
+    lastName: zod_1.default.string().min(1),
     email: zod_1.default.string().email(),
-    password: zod_1.default.string()
+    password: zod_1.default.string().min(3)
 });
 const userSigninSchema = zod_1.default.object({
     email: zod_1.default.string().email(),

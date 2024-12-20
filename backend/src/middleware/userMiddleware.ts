@@ -18,10 +18,10 @@ declare global {
 
 
 const userSignupSchema = z.object({
-    firstName: z.string(),
-    lastName: z.string(),
+    firstName: z.string().min(1),
+    lastName: z.string().min(1),
     email: z.string().email(),
-    password: z.string()
+    password: z.string().min(3)
 })
 const userSigninSchema = z.object({
     email: z.string().email(),

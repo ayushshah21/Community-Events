@@ -51,4 +51,18 @@ export default class UserController {
             return res.status(404).json({ msg: "Error Signing in" });
         }
     }
+    getInfo = async (req: Request, res: Response) => {
+        const id = req.id;
+        try{
+            const id = String(req.id);
+                const userExists = await UserModel.findUserId({ id });
+                if (!userExists) {
+                    return res.status(404).json({ msg: "Invalid token" });
+                }
+                return res.status(200).json({user: { id: userExists.id, email: userExists.email, firstName: userExists.firstName, lastName: userExists.lastName },})
+        }
+        catch (err) {
+            return res.status(404).json({ msg: "Error fetching user" });
+        }
+    }
 }

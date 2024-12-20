@@ -63,6 +63,20 @@ class UserController {
                 return res.status(404).json({ msg: "Error Signing in" });
             }
         });
+        this.getInfo = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const id = req.id;
+            try {
+                const id = String(req.id);
+                const userExists = yield userModel_1.default.findUserId({ id });
+                if (!userExists) {
+                    return res.status(404).json({ msg: "Invalid token" });
+                }
+                return res.status(200).json({ user: { id: userExists.id, email: userExists.email, firstName: userExists.firstName, lastName: userExists.lastName }, });
+            }
+            catch (err) {
+                return res.status(404).json({ msg: "Error fetching user" });
+            }
+        });
     }
 }
 exports.default = UserController;
