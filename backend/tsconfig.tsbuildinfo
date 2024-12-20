@@ -1,1 +1,1 @@
-{"root":["./src/index.ts","./src/types.ts","./src/controllers/usercontroller.ts","./src/middleware/middleware.ts","./src/models/usermodel.ts","./src/routes/userroutes.ts"],"version":"5.7.2"}
+{"root":["./src/index.ts","./src/types.ts","./src/controllers/eventcontroller.ts","./src/controllers/usercontroller.ts","./src/middleware/eventmiddleware.ts","./src/middleware/usermiddleware.ts","./src/models/eventmodel.ts","./src/models/usermodel.ts","./src/routes/eventroutes.ts","./src/routes/userroutes.ts"],"version":"5.7.2"}

@@ -1,6 +1,6 @@
 import express from "express";
 import UserController from "../controllers/userController";
-import { signinCheck, signupCheck } from "../middleware/middleware";
+import { signinCheck, signupCheck } from "../middleware/userMiddleware";
 
 const router = express.Router();
 const userController = new UserController();

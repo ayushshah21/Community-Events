@@ -77,4 +77,26 @@ async function signinCheck(req: Request, res: Response, next: NextFunction) {
 
 }
 
-export { signupCheck, signinCheck }
+async function verifyToken(req: Request, res: Response, next: NextFunction){
+    const tokenArr = req.headers.authorization;
+    if (tokenArr) {
+        const token = tokenArr?.split(" ")[1];
+        if (tokenArr?.split(" ")[0] !== 'Bearer') {
+            res.status(404).json({ msg: "Invalid token" });
+            return;
+        }
+        try{
+            const decoded = jwt.verify(token, process.env.JWT_SECRET || "") as JwtPayload;
+            req.id = decoded.id;
+            next();
+        }
+        catch(err){
+            res.status(404).json({ msg: "Invalid user token" });
+            return;
+        }
+    }
+}
+
+
+
+export { signupCheck, signinCheck, verifyToken }

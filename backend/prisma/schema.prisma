@@ -30,7 +30,7 @@ model Event {
   description String
   location String
   creatorId String
-  createDate DateTime @default(now())
+  eventDate DateTime @default(now())
   creator User @relation("UserEvents", fields: [creatorId], references: [id])
   attendees User[] @relation("EventAttendees")
 }
