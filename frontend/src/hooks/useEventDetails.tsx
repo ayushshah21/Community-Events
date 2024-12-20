@@ -1,28 +1,27 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { Event } from '../types';
+import { FullEvent } from '../types';
 
-interface UseAllEventsReturn {
-    events: Event[] | undefined; // null if no data yet
+interface EventDetails {
+    eventDetails: FullEvent | undefined; // null if no data yet
     loading: boolean;
   }
 
-const useAllEvents = (): UseAllEventsReturn => {
-    const[events, setEvents] = useState<Event[]>();
+const useEventDetails = ({id}: {id: string}): EventDetails => {
+    const[eventDetails, setEventDetails] = useState<FullEvent>();
     const[loading, setLoading] = useState(true);
     const navigate = useNavigate();
     
     useEffect(() => {
-        async function getAllEvents(){
+        async function getEventDetails(){
             try{
                 const token = localStorage.getItem('token');
-                console.log(token);
                 if(!token){
                     navigate('/login');
                     return;
                 }
-                const res = await axios.get("http://localhost:3000/events", {
+                const res = await axios.get(`http://localhost:3000/events/${id}`, {
                     headers : {
                         Authorization: `Bearer ${token}`
                     }
@@ -31,7 +30,7 @@ const useAllEvents = (): UseAllEventsReturn => {
                     throw new Error("Error");
                 }
                 console.log(res.data);
-                setEvents(res.data);
+                setEventDetails(res.data);
             }
             catch(err){
                 console.log(err);
@@ -40,10 +39,10 @@ const useAllEvents = (): UseAllEventsReturn => {
                 setLoading(false);
             }
         }
-        getAllEvents();
-    }, [navigate])
+        getEventDetails();
+    }, [id, navigate])
 
-  return {events, loading};
+  return {eventDetails, loading};
 }
 
-export default useAllEvents
+export default useEventDetails
