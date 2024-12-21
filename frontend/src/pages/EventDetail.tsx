@@ -10,7 +10,22 @@ const EventDetail: React.FC = () => {
   if (loading) {
     return <div>Loading...</div>;
   }
-  if (!eventDetails) return <div>No events found</div>;
+  if (!eventDetails)
+    return (
+      <div className="max-w-2xl mx-auto">
+        <Link
+          to="/"
+          className="text-blue-500 hover:text-blue-600 mb-4 inline-block text-2xl"
+        >
+          &larr; Back to Events
+        </Link>
+        <div className="bg-white shadow-md rounded-lg overflow-hidden p-6">
+          <div className="flex justify-center items-center text-3xl font-bold text-slate-900">
+            This event does not exist
+          </div>
+        </div>
+      </div>
+    );
 
   return (
     <div className="max-w-2xl mx-auto">
@@ -22,7 +37,7 @@ const EventDetail: React.FC = () => {
       </Link>
       <div className="bg-white shadow-md rounded-lg overflow-hidden">
         <div className="p-6">
-          <h1 className="text-3xl font-bold mb-2">{eventDetails.title}</h1>
+          <h1 className="text-3xl font-bold mb-2">{eventDetails.name}</h1>
           <p className="text-gray-600 mb-4">
             <span className="mr-4">
               {new Date(eventDetails.eventDate).toLocaleDateString()}

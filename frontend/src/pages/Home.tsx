@@ -6,7 +6,6 @@ const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [dateFilter, setDateFilter] = useState("");
   const { events, loading } = useAllEvents();
-  console.log(events);
 
   if (loading) {
     return <div>Loading...</div>;

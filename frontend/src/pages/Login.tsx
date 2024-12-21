@@ -21,6 +21,7 @@ const Login: React.FC = () => {
         },
       });
       // const user = res.data.user;
+      console.log(res);
       const token = res.data.token;
       localStorage.setItem("token", token);
       navigate("/");
