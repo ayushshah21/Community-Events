@@ -36,3 +36,10 @@ export interface User {
     lastName: string,
     email: string
 }
+
+export interface NewEvent {
+    name: string,
+    description: string,
+    location: string,
+    eventDate: Date
+}
