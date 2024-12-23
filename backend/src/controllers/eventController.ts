@@ -52,9 +52,9 @@ export default class UserController {
             if (!event) {
                 return res.status(404).json({ msg: "Event does not exist" });
             }
-            const updatedAttendees = await EventModel.updateAttendees({eventId, userId});
-            const updatedEventDetails = await EventModel.eventDetails({id: eventId});
-            return res.status(200).json({updatedEventDetails});
+            const updatedAttendees = await EventModel.updateAttendees({ eventId, userId });
+            const updatedEventDetails = await EventModel.eventDetails({ id: eventId });
+            return res.status(200).json({ updatedEventDetails });
 
         }
         catch (err) {
@@ -63,14 +63,34 @@ export default class UserController {
     }
 
     attendeesInfo = async (req: Request, res: Response) => {
-        try{
+        try {
             const id = req.params.id;
             const event = await EventModel.eventDetails({ id });
             const attendeesInfo = event?.attendees;
-            return res.status(200).json({attendeesInfo});
+            return res.status(200).json({ attendeesInfo });
         }
-        catch(err){
+        catch (err) {
             return res.status(404).json({ msg: "Error fetching attendees info" });
+        }
+    }
+
+    getUserCreatedEvents = async (req: Request, res: Response) => {
+        try {
+            const userId = req.params.userId;
+            const events = await EventModel.findEventsByCreator(userId);
+            return res.status(200).json(events);
+        } catch (err) {
+            return res.status(404).json({ msg: "Error fetching created events" });
+        }
+    }
+
+    getUserAttendingEvents = async (req: Request, res: Response) => {
+        try {
+            const userId = req.params.userId;
+            const events = await EventModel.findEventsByAttendee(userId);
+            return res.status(200).json(events);
+        } catch (err) {
+            return res.status(404).json({ msg: "Error fetching attending events" });
         }
     }
 }

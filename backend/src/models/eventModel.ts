@@ -26,7 +26,7 @@ export default class EventModel {
                     }
                 },
                 attendees: {
-                    select : {
+                    select: {
                         firstName: true,
                         lastName: true,
                         email: true,
@@ -45,6 +45,32 @@ export default class EventModel {
                     connect: { id: userId },
                 },
             },
+        });
+    }
+
+    static async findEventsByCreator(userId: string) {
+        return await prisma.event.findMany({
+            where: {
+                creatorId: userId
+            },
+            orderBy: {
+                eventDate: 'asc'
+            }
+        });
+    }
+
+    static async findEventsByAttendee(userId: string) {
+        return await prisma.event.findMany({
+            where: {
+                attendees: {
+                    some: {
+                        id: userId
+                    }
+                }
+            },
+            orderBy: {
+                eventDate: 'asc'
+            }
         });
     }
 }

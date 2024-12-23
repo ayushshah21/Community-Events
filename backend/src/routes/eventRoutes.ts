@@ -18,13 +18,19 @@ router.post('/create', verifyToken, newEventCheck, (req, res) => {
     eventController.createEvent(req, res);
 });
 router.post('/attending', verifyToken, validEventIdBodyCheck, (req, res) => {
-   eventController.attendingEvent(req, res);
+    eventController.attendingEvent(req, res);
 });
 
 router.get("/attendees/:id", verifyToken, validEventIdCheck, (req, res) => {
     eventController.attendeesInfo(req, res);
 })
 
+router.get('/created/:userId', verifyToken, (req, res) => {
+    eventController.getUserCreatedEvents(req, res);
+});
 
+router.get('/attending/:userId', verifyToken, (req, res) => {
+    eventController.getUserAttendingEvents(req, res);
+});
 
 export default router;

@@ -61,5 +61,33 @@ class EventModel {
             });
         });
     }
+    static findEventsByCreator(userId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield prisma.event.findMany({
+                where: {
+                    creatorId: userId
+                },
+                orderBy: {
+                    eventDate: 'asc'
+                }
+            });
+        });
+    }
+    static findEventsByAttendee(userId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield prisma.event.findMany({
+                where: {
+                    attendees: {
+                        some: {
+                            id: userId
+                        }
+                    }
+                },
+                orderBy: {
+                    eventDate: 'asc'
+                }
+            });
+        });
+    }
 }
 exports.default = EventModel;

@@ -24,4 +24,10 @@ router.post('/attending', userMiddleware_1.verifyToken, eventMiddleware_1.validE
 router.get("/attendees/:id", userMiddleware_1.verifyToken, eventMiddleware_1.validEventIdCheck, (req, res) => {
     eventController.attendeesInfo(req, res);
 });
+router.get('/created/:userId', userMiddleware_1.verifyToken, (req, res) => {
+    eventController.getUserCreatedEvents(req, res);
+});
+router.get('/attending/:userId', userMiddleware_1.verifyToken, (req, res) => {
+    eventController.getUserAttendingEvents(req, res);
+});
 exports.default = router;

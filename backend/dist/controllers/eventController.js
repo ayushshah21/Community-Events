@@ -76,6 +76,26 @@ class UserController {
                 return res.status(404).json({ msg: "Error fetching attendees info" });
             }
         });
+        this.getUserCreatedEvents = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const userId = req.params.userId;
+                const events = yield eventModel_1.default.findEventsByCreator(userId);
+                return res.status(200).json(events);
+            }
+            catch (err) {
+                return res.status(404).json({ msg: "Error fetching created events" });
+            }
+        });
+        this.getUserAttendingEvents = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const userId = req.params.userId;
+                const events = yield eventModel_1.default.findEventsByAttendee(userId);
+                return res.status(200).json(events);
+            }
+            catch (err) {
+                return res.status(404).json({ msg: "Error fetching attending events" });
+            }
+        });
     }
 }
 exports.default = UserController;
