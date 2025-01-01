@@ -1,0 +1,47 @@
+name: community-events
+
+services:
+  db:
+      image: postgres:16-alpine
+      restart: unless-stopped
+      environment:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+        POSTGRES_DB: events_db
+      ports:
+        - 5432:5432
+      volumes:
+        - postgres_data:/var/lib/postgresql/data
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file: ./backend/.env
+    ports:
+      - 3000:3000
+    volumes:
+      - ./backend/src:/app/src
+    depends_on:
+      - db
+  frontend:
+    build:  
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file: ./frontend/.env
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    networks:
+      - community-events 
+    ports: 
+      - 5173:5173
+    command: npm run dev -- --host
+    depends_on:
+      - api
+volumes:
+  postgres_data: {}
+networks:
+  community-events:
+    driver: bridge

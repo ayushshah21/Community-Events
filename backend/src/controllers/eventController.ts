@@ -21,7 +21,9 @@ export default class UserController {
     getAllEvents = async (req: Request, res: Response) => {
         try {
             const allEvents = await EventModel.getAllEvents();
-            allEvents.sort((a, b) => a.eventDate.valueOf() - b.eventDate.valueOf());
+            allEvents.sort((a: { eventDate: Date }, b: { eventDate: Date }) =>
+                a.eventDate.valueOf() - b.eventDate.valueOf()
+            );
             return res.status(200).json(allEvents);
 
         }
